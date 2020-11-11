@@ -3,7 +3,7 @@ from __future__ import division, print_function, absolute_import
 
 import logging
 import numpy as np
-import tensorflow as tf
+import tensorflow.compat.v1 as tf
 from tensorflow.python.ops import array_ops
 try:
     from tensorflow.python.ops.rnn import rnn_cell_impl as _rnn_cell, dynamic_rnn as _drnn, static_rnn as _rnn, static_bidirectional_rnn as _brnn
@@ -531,11 +531,11 @@ class BasicLSTMCell(core_rnn_cell.RNNCell):
                 j = batch_normalization(j, gamma=0.1, trainable=self.trainable, restore=self.restore, reuse=self.reuse)
                 f = batch_normalization(f, gamma=0.1, trainable=self.trainable, restore=self.restore, reuse=self.reuse)
                 o = batch_normalization(o, gamma=0.1, trainable=self.trainable, restore=self.restore, reuse=self.reuse)
-            
+
             new_c = (c * self._inner_activation(f + self._forget_bias) +
                      self._inner_activation(i) *
                      self._activation(j))
-            
+
             # hidden-to-hidden batch normalizaiton
             if self.batch_norm == True:
                 batch_norm_new_c = batch_normalization(new_c, gamma=0.1, trainable=self.trainable, restore=self.restore, reuse=self.reuse)

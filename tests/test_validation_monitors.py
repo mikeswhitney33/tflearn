@@ -1,6 +1,6 @@
 from __future__ import division, print_function, absolute_import
 
-import tensorflow as tf
+import tensorflow.compat.v1 as tf
 import tflearn
 import unittest
 import os
@@ -25,7 +25,7 @@ class TestValidationMonitors(unittest.TestCase):
             testX = testX.reshape([-1, 28, 28, 1])
             X = X[:10, :, :, :]
             Y = Y[:10, :]
-            
+
             # Building convolutional network
             network = input_data(shape=[None, 28, 28, 1], name='input')
             network = conv_2d(network, 32, 3, activation='relu', regularizer="L2")
@@ -38,7 +38,7 @@ class TestValidationMonitors(unittest.TestCase):
             network = dropout(network, 0.8)
             network = fully_connected(network, 256, activation='tanh')
             network = dropout(network, 0.8)
-    
+
             # construct two varaibles to add as additional "valiation monitors"
             # these varaibles are evaluated each time validation happens (eg at a snapshot)
             # and the results are summarized and output to the tensorboard events file,
@@ -51,23 +51,23 @@ class TestValidationMonitors(unittest.TestCase):
             with tf.name_scope('CustomMonitor'):
                 test_var = tf.reduce_sum(tf.cast(network, tf.float32), name="test_var")
                 test_const = tf.constant(32.0, name="custom_constant")
-    
+
             print ("network=%s, test_var=%s" % (network, test_var))
             network = fully_connected(network, 10, activation='softmax')
             network = regression(network, optimizer='adam', learning_rate=0.01,
                                  loss='categorical_crossentropy', name='target', validation_monitors=[test_var, test_const])
-            
+
             # Training
             model = tflearn.DNN(network, tensorboard_verbose=3)
             model.fit({'input': X}, {'target': Y}, n_epoch=1,
                        validation_set=({'input': testX}, {'target': testY}),
                        snapshot_step=10, show_metric=True, run_id='convnet_mnist')
-            
+
             # check for validation monitor variables
             ats = tf.get_collection("Adam_testing_summaries")
             print ("ats=%s" % ats)
             self.assertTrue(len(ats)==4)	# should be four variables being summarized: [loss, test_var, test_const, accuracy]
-            
+
             session = model.session
             print ("session=%s" % session)
             trainer = model.trainer
@@ -80,9 +80,9 @@ class TestValidationMonitors(unittest.TestCase):
                 ats_const_val = tflearn.variables.get_value(vmtset[1])
             print ("summary values: var=%s, const=%s" % (ats_var_val, ats_const_val))
             self.assertTrue(ats_const_val==32)	# test to make sure the constant made it through
-    
+
             # TBD: parse the recorded tensorboard events and ensure the validation monitor variables show up there
-    
+
 class TestValidationBatch(unittest.TestCase):
     """
     Testing Validation Batch size specification
@@ -100,7 +100,7 @@ class TestValidationBatch(unittest.TestCase):
             Y = Y[:20, :]
             testX = testX[:10, :, :, :]
             testY = testY[:10, :]
-            
+
             # Building convolutional network
             network = input_data(shape=[None, 28, 28, 1], name='input')
             network = conv_2d(network, 32, 3, activation='relu', regularizer="L2")
@@ -116,7 +116,7 @@ class TestValidationBatch(unittest.TestCase):
             network = fully_connected(network, 10, activation='softmax')
             network = regression(network, optimizer='adam', learning_rate=0.01,
                                  loss='categorical_crossentropy', name='target')
-            
+
             # Training
             model = tflearn.DNN(network, tensorboard_verbose=3)
             model.fit({'input': X}, {'target': Y}, n_epoch=1,
@@ -124,9 +124,9 @@ class TestValidationBatch(unittest.TestCase):
                       validation_set=({'input': testX}, {'target': testY}),
                       validation_batch_size=5,
                       snapshot_step=10, show_metric=True, run_id='convnet_mnist_vbs')
-    
+
             self.assertEqual(model.train_ops[0].validation_batch_size, 5)
             self.assertEqual(model.train_ops[0].batch_size, 10)
-    
+
 if __name__ == "__main__":
     unittest.main()

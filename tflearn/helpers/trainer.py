@@ -4,7 +4,7 @@ from __future__ import division, print_function, absolute_import
 import re
 import os
 import numpy as np
-import tensorflow as tf
+import tensorflow.compat.v1 as tf
 from tensorflow.python.training import optimizer as tf_optimizer
 
 import tflearn
@@ -245,7 +245,7 @@ class Trainer(object):
         # Remove excluded train_ops
         if excl_trainops:
             self.train_ops = list(filter(lambda a: a not in excl_trainops, self.train_ops))
-	    
+
         # shuffle is an override for simplicty, it will overrides every
         # training op batch shuffling
         if isinstance(shuffle_all, bool):
@@ -442,11 +442,11 @@ class Trainer(object):
                                  restored.
             scope_for_restore: string specifying the scope to limit to, when restoring variables.
                                Also removes the scope name prefix from the var name to use when restoring.
-            create_new_session: Set to False if the current session is to be kept.  
+            create_new_session: Set to False if the current session is to be kept.
                                 Set to True (the default) to create a new session, and re-init all variables.
             verbose           : Set to True to see a printout of what variables are being restored,
                                 when using scope_for_restore or variable_name_map
-        
+
         """
         # TF 0.12 Fix
         if not os.path.isabs(model_file):
@@ -562,11 +562,11 @@ class TrainOp(object):
         validation_monitors: `list` of `Tensor` objects.  List of variables
             to compute during validation, which are also used to produce
             summaries for output to TensorBoard.  For example, this can be
-            used to periodically record a confusion matrix or AUC metric, 
-            during training.  Each variable should have rank 1, i.e. 
+            used to periodically record a confusion matrix or AUC metric,
+            during training.  Each variable should have rank 1, i.e.
             shape [None].
         validation_batch_size: `int` or None. If `int`, specifies the batch
-            size to be used for the validation data feed; otherwise 
+            size to be used for the validation data feed; otherwise
             defaults to being th esame as `batch_size`.
         name: `str`. A name for this class (optional).
         graph: `tf.Graph`. Tensorflow Graph to use for training. Default:

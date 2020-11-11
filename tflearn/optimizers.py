@@ -1,6 +1,6 @@
 from __future__ import division, print_function, absolute_import
 
-import tensorflow as tf
+import tensorflow.compat.v1 as tf
 from .utils import get_from_module
 
 
@@ -507,9 +507,9 @@ class Nesterov(Optimizer):
     """ Nesterov.
 
     The main difference between classical momentum and nesterov is:
-    In classical momentum you first correct your velocity and 
-    then make a big step according to that velocity (and then repeat), 
-    but in Nesterov momentum you first making a step into velocity 
+    In classical momentum you first correct your velocity and
+    then make a big step according to that velocity (and then repeat),
+    but in Nesterov momentum you first making a step into velocity
     direction and then make a correction to a velocity vector based on
     new location (then repeat).
     See [Sutskever et. al., 2013](

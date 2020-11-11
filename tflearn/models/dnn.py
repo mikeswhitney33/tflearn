@@ -1,6 +1,6 @@
 from __future__ import division, print_function, absolute_import
 
-import tensorflow as tf
+import tensorflow.compat.v1 as tf
 import numpy as np
 
 from ..helpers.trainer import Trainer
@@ -296,7 +296,7 @@ class DNN(object):
                 averages will not be restored as well.
             optargs: optional extra arguments for trainer.restore (see helpers/trainer.py)
                      These optional arguments may be used to limit the scope of
-                     variables restored, and to control whether a new session is 
+                     variables restored, and to control whether a new session is
                      created for the restored variables.
         """
         self.trainer.restore(model_file, weights_only, **optargs)

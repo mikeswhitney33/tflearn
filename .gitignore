@@ -12,3 +12,5 @@ checkpoint
 htmlcov
 mnist
 test*tflearn*
+env/
+.vscode/

@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 from __future__ import division, print_function, absolute_import
 
-import tensorflow as tf
+import tensorflow.compat.v1 as tf
 import numpy as np
 from math import ceil
 
@@ -1861,7 +1861,7 @@ def densenet_block(incoming, nb_layers, growth, bottleneck=True,
         nb_blocks: `int`. Number of layer blocks.
         growth: `int`. DenseNet 'growth': The number of convolutional
             filters of each convolution.
-        bottleneck: `bool`. If True, add a 1x1 convolution before the 3x3 
+        bottleneck: `bool`. If True, add a 1x1 convolution before the 3x3
             convolution to reduce the number of input features map.
         downsample: `bool`. If True, apply downsampling using
             'downsample_strides' for strides.
@@ -1870,7 +1870,7 @@ def densenet_block(incoming, nb_layers, growth, bottleneck=True,
             Activation applied to this layer (see tflearn.activations).
             Default: 'linear'.
         batch_norm: `bool`. If True, apply batch normalization.
-        dropout: `bool`. If True, apply dropout. Use 'dropout_keep_prob' to 
+        dropout: `bool`. If True, apply dropout. Use 'dropout_keep_prob' to
             specify the keep probability.
         dropout_keep_prob: `float`. Keep probability parameter for dropout.
         bias: `bool`. If True, a bias is used.
@@ -1892,7 +1892,7 @@ def densenet_block(incoming, nb_layers, growth, bottleneck=True,
         name: A name for this layer (optional). Default: 'ResNeXtBlock'.
 
     References:
-        Densely Connected Convolutional Networks, G. Huang, Z. Liu, 
+        Densely Connected Convolutional Networks, G. Huang, Z. Liu,
         K. Q. Weinberger, L. van der Maaten. 2016.
 
     Links:

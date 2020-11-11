@@ -1,7 +1,7 @@
 from __future__ import division, print_function, absolute_import
 
 from .utils import get_from_module
-import tensorflow as tf
+import tensorflow.compat.v1 as tf
 
 
 def get(identifier):
@@ -65,12 +65,12 @@ class Accuracy(Metric):
     """ Accuracy.
 
     Computes the model accuracy.  The target predictions are assumed
-    to be logits.  
+    to be logits.
 
-    If the predictions tensor is 1D (ie shape [?], or [?, 1]), then the 
+    If the predictions tensor is 1D (ie shape [?], or [?, 1]), then the
     labels are assumed to be binary (cast as float32), and accuracy is
     computed based on the average number of equal binary outcomes,
-    thresholding predictions on logits > 0.  
+    thresholding predictions on logits > 0.
 
     Otherwise, accuracy is computed based on categorical outcomes,
     and assumes the inputs (both the model predictions and the labels)

@@ -2,7 +2,7 @@
     This file contains test cases for tflearn
 '''
 
-import tensorflow as tf
+import tensorflow.compat.v1 as tf
 import tflearn
 import unittest
 
@@ -26,7 +26,7 @@ class TestActivations(unittest.TestCase):
     def test_tanh(self):
         f = tflearn.tanh
         x = tf.placeholder(tf.float32, shape=())
-        
+
         with tf.Session() as sess:
             # Case 1
             self.assertEqual(sess.run(f(x), feed_dict={x:0}), 0)

@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 from __future__ import division, print_function, absolute_import
 
-import tensorflow as tf
+import tensorflow.compat.v1 as tf
 
 import numpy as np
 import tflearn
@@ -307,36 +307,36 @@ def selu(x):
 
 def hard_sigmoid(x):
     """Hard sigmoid activation function.
-    
+
     Segment-wise linear approximation of sigmoid. Faster than sigmoid
-    
+
     Arguments
       x: Input tensor.
-      
+
     Returns
       Hard sigmoid activation:
-      
+
       - `0` if `x < -2.5`
       - `1` if `x > 2.5`
       - `0.2 * x + 0.5` if `-2.5 <= x <= 2.5`.
-    
+
     """
     return tf.keras.backend.hard_sigmoid(x)
 
 
 def gelu(x):
     """Gaussian Error Linear Units (GELUs)
-    
+
     GLUEs are nonconvex, nonmonotonic.
-    
+
     Arguments
       x: Input tensor.
-    
+
     References:
       Gaussian Error Linear Units (GELUs), Hendrycks et. al, 2018.
-      
-    Links: 
+
+    Links:
         [https://arxiv.org/pdf/1606.08415.pdf](https://arxiv.org/pdf/1606.08415.pdf)
     """
-    
+
     return 0.5 * x * (1 + tf.tanh(tf.sqrt(2 / np.pi) * (x + 0.044715 * tf.pow(x, 3))))

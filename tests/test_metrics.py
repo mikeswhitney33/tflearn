@@ -2,7 +2,7 @@ import tflearn
 import unittest
 
 import numpy as np
-import tensorflow as tf
+import tensorflow.compat.v1 as tf
 
 class TestMetrics(unittest.TestCase):
     """
@@ -16,7 +16,7 @@ class TestMetrics(unittest.TestCase):
             ba = tflearn.metrics.accuracy()
             ba.build(input_data, y_true)
             acc_op = ba.tensor
-    
+
             X = np.array([1,-1,1,1,-1,-1]).reshape([-1, 1])
             Y = np.array([1,0,1,0,0,1]).reshape([-1, 1])
             with tf.Session() as sess:
@@ -32,7 +32,7 @@ class TestMetrics(unittest.TestCase):
             ba = tflearn.metrics.accuracy()
             ba.build(input_data, y_true)
             acc_op = ba.tensor
-    
+
             X = np.array([1,-1, -1, 1, 0.5, 0]).reshape([-1, 2])
             Y = np.array([1, 0,  0, 1, 0,   1]).reshape([-1, 2])
             with tf.Session() as sess:

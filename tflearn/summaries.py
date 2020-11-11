@@ -1,6 +1,6 @@
 from __future__ import division, print_function, absolute_import
 
-import tensorflow as tf
+import tensorflow.compat.v1 as tf
 from tensorflow.core.framework import summary_pb2
 
 from .utils import format_scope_name

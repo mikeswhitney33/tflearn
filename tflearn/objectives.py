@@ -1,6 +1,6 @@
 from __future__ import division, print_function, absolute_import
 
-import tensorflow as tf
+import tensorflow.compat.v1 as tf
 
 from .config import _EPSILON, _FLOATX
 from .utils import get_from_module
@@ -259,7 +259,7 @@ def weak_cross_entropy_2d(y_pred, y_true, num_classes=None, epsilon=0.0001,
 
 def contrastive_loss(y_pred, y_true, margin = 1.0):
     """ Contrastive Loss.
-    
+
         Computes the constrative loss between y_pred (logits) and
         y_true (labels).
 

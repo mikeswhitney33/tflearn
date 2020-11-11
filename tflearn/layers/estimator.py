@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 from __future__ import division, print_function, absolute_import
 
-import tensorflow as tf
+import tensorflow.compat.v1 as tf
 
 from ..layers import core
 from tflearn import utils
@@ -15,7 +15,7 @@ def regression(incoming, placeholder='default', optimizer='adam',
                loss='categorical_crossentropy', metric='default',
                learning_rate=0.001, dtype=tf.float32, batch_size=64,
                shuffle_batches=True, to_one_hot=False, n_classes=None,
-               trainable_vars=None, restore=True, op_name=None, 
+               trainable_vars=None, restore=True, op_name=None,
                validation_monitors=None, validation_batch_size=None, name=None):
     """ Regression.
 
@@ -80,8 +80,8 @@ def regression(incoming, placeholder='default', optimizer='adam',
         validation_monitors: `list` of `Tensor` objects.  List of variables
             to compute during validation, which are also used to produce
             summaries for output to TensorBoard.  For example, this can be
-            used to periodically record a confusion matrix or AUC metric, 
-            during training.  Each variable should have rank 1, i.e. 
+            used to periodically record a confusion matrix or AUC metric,
+            during training.  Each variable should have rank 1, i.e.
             shape [None].
         validation_batch_size: `int` or None. Specifies the batch
             size to be used for the validation data feed.

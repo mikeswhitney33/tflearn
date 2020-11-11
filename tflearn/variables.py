@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 from __future__ import division, print_function, absolute_import
 
-import tensorflow as tf
+import tensorflow.compat.v1 as tf
 import tflearn
 
 from tflearn.vendor.arg_scope import add_arg_scope as contrib_add_arg_scope

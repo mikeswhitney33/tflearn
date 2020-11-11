@@ -1,4 +1,4 @@
-import tensorflow as tf
+import tensorflow.compat.v1 as tf
 import tflearn
 import unittest
 import os
@@ -112,7 +112,7 @@ class TestLayers(unittest.TestCase):
             tflearn.regression(g_nand, optimizer='sgd',
                                placeholder=Y_in,
                                learning_rate=2.,
-                               loss='binary_crossentropy', 
+                               loss='binary_crossentropy',
                                op_name="regression1",
                                name="Y")
             # for this test, just use the same default trainable_vars
@@ -120,7 +120,7 @@ class TestLayers(unittest.TestCase):
             tflearn.regression(g_nand, optimizer='adam',
                                placeholder=Y_in,
                                learning_rate=2.,
-                               loss='binary_crossentropy', 
+                               loss='binary_crossentropy',
                                op_name="regression2",
                                name="Y")
 
